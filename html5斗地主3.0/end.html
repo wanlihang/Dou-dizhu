@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>结算界面</title>
+    <script type="text/javascript" src="ResourceData.js"></script>
+    <script type="text/javascript" src="Prototype.js"></script>
+    <script type="text/javascript" src="JControls.js"></script>
+    <script type="text/javascript" src="DJDDZ.js"></script>
+</head>
+
+<body onload="showScore()">
+    <div style="margin-left: 450px;">
+        <div style="margin-top: 0px;width: 1000px;height: 70px;background: #3B0F0B;
+    border-top-right-radius: 10px;border-top-left-radius: 10px;">
+            <span style="position: absolute; left: 900px;color: #F0CAA9; font-size: 30px;">计分面板</span>
+            <div style="text-align: right; color: #F0CAA9; font-size: 30px;margin-right: 10px; ">
+                积分：<span id="score" style="color: #A36128;"></span>
+            </div>
+            <div style="color: #F0CAA9; font-size: 20px; text-align: center;">
+                ×<span id="beishu" style="color: #A36128;"></span>
+            </div>
+        </div>
+        <canvas id="end"></canvas>
+    </div>
+    <script type="text/javascript">
+    var name = "玩家";
+    var difen = 15;
+    var jifen, jifen1, jifen2, beishu1, beishu2;
+    var url = location.search;
+    if (url.indexOf("?") != -1) { //查询url(参数)部分?year=xxxx&month=xx
+        var str = url.substr(1); //去掉?号 
+        strs = str.split("&"); //以&为界，分为两段
+        success = String(strs[0].substr(2));
+        beishu = String(strs[1].substr(2));
+        //alert(a+"  "+b);
+    }
+    jifen = difen * beishu;
+    jifen1 = jifen;
+    jifen2 = jifen; //人机积分增减
+    beishu1 = beishu;
+    beishu2 = beishu;
+
+
+    var score = localStorage.getItem("score");
+    if (success == 0) {
+        score = parseInt(score) - parseInt(jifen);
+        localStorage.setItem("score", score);
+        jifen = "-" + jifen;
+        beishu1 = beishu1 / 2;
+        beishu2 = beishu2 / 2;
+        jifen1 = "+" + jifen1 / 2;
+        jifen2 = "+" + jifen2 / 2;
+    }
+    if (success == 1) {
+        score = parseInt(score) + parseInt(jifen);
+        localStorage.setItem("score", score);
+        jifen = "+" + jifen;
+        beishu1 = beishu1 / 2;
+        beishu2 = beishu2 / 2;
+        jifen1 = "-" + jifen1 / 2;
+        jifen2 = "-" + jifen2 / 2;
+    }
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("beishu").innerText = beishu;
+
+
+    Init = function(canvasID) {
+        JFunction.PreLoadData(GMain.URL).done(function() {
+            JMain.JForm = new JControls.Form(GMain.Size, canvasID).setBGImage(ResourceData.Images.bg1);
+            JMain.JForm.clearControls();
+            GMain.endPanel = new JControls.Object({ x: 300, y: 60 }, { width: 400, height: 400 }).setBGImage(ResourceData.Images.endbg); //用于显示游戏控制按钮
+
+
+
+            var success1 = new JControls.Button({ x: 320, y: 0 }, { width: 130, height: 130 }).setText("").setBGImage(ResourceData.Images.successbg);
+            var msg = new JControls.Label({ x: 40, y: 80 }).setText("昵称     底分    倍数     积分").setSize({ width: 340, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var msg1 = new JControls.Label({ x: 50, y: 120 }).setText(name + "       " + difen + "        " + beishu + "        " + jifen).setSize({ width: 300, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var msg2 = new JControls.Label({ x: 50, y: 160 }).setText("机器人1" + "    " + difen + "        " + beishu1 + "        " + jifen1).setSize({ width: 300, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var msg3 = new JControls.Label({ x: 50, y: 200 }).setText("机器人2" + "    " + difen + "        " + beishu2 + "        " + jifen2).setSize({ width: 300, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var exitButton = new JControls.Button({ x: 80, y: 250 }, { width: 100, height: 50 }).setText("").setBGImage(ResourceData.Images.exit);
+            var againButton = new JControls.Button({ x: 220, y: 250 }, { width: 100, height: 50 }).setText("").setBGImage(ResourceData.Images.again);
+            exitButton.onMouseDown = function() {
+                exitButton.setBGImage(ResourceData.Images.clickexit);
+                JMain.JForm.show();
+            }
+            exitButton.onMouseUp = function() {
+                exitButton.setBGImage(ResourceData.Images.exit);
+                JMain.JForm.show();
+                window.location.href = "start.html";
+            }
+            againButton.onMouseDown = function() {
+                againButton.setBGImage(ResourceData.Images.clickagain);
+                JMain.JForm.show();
+            }
+            againButton.onMouseUp = function() {
+                againButton.setBGImage(ResourceData.Images.again);
+                JMain.JForm.show();
+                window.location.href = "index.html";
+            }
+            GMain.endPanel.addControlInLast([msg, success1, msg1, msg2, msg3, exitButton, againButton]);
+            JMain.JForm.addControlInLast([GMain.endPanel]);
+            JMain.JForm.show();
+        });
+    }
+    Init("end");
+    </script>
+</body>
+
+</html>

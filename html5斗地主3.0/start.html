@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>游戏开始</title>
+    <script type="text/javascript" src="ResourceData.js"></script>
+    <script type="text/javascript" src="Prototype.js"></script>
+    <script type="text/javascript" src="JControls.js"></script>
+    <script type="text/javascript" src="DJDDZ.js"></script>
+</head>
+
+<body>
+    <div style="margin-left: 450px;">
+        <canvas id="start"></canvas>
+    </div>
+    <script type="text/javascript">
+    var mus1f = 1,
+        mus2f = 1;
+    var ok1 = 1,
+        ok2 = 1;
+    Init = function(canvasID) {
+        JFunction.PreLoadData(GMain.URL).done(function() {
+            JMain.JForm = new JControls.Form(GMain.Size, canvasID).setBGImage(ResourceData.Images.startbg);
+            JMain.JForm.clearControls();
+            GMain.BtnPanel = new JControls.Object({ x: 0, y: 0 }, { width: 1000, height: 600 }); //用于显示游戏控制按钮
+            var BeginButton = new JControls.Button({ x: 435, y: 430 }, { width: 130, height: 50 }).setText("").setBGImage(ResourceData.Images.startbtn);
+            var setButton = new JControls.Button({ x: 20, y: 20 }, { width: 56, height: 68 }).setText("").setBGImage(ResourceData.Images.setbtn);
+            GMain.setPanel = new JControls.Object({ x: 225, y: 50 }, { width: 350, height: 350 }).setBGImage(ResourceData.Images.setp);
+
+            var musicbtn1 = new JControls.Button({ x: 50, y: 80 }, { width: 50, height: 50 }).setBGImage(ResourceData.Images.music);
+            var musictext1 = new JControls.Label({ x: 200, y: 90 }).setText("背景音乐").setSize({ width: 60, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var musicbtn2 = new JControls.Button({ x: 50, y: 180 }, { width: 50, height: 50 }).setBGImage(ResourceData.Images.music);
+            var musictext2 = new JControls.Label({ x: 200, y: 190 }).setText("音效").setSize({ width: 60, height: 20 }).setTextBaseline("middle").setTextAlign("center").setFontType("bold").setFontSize(20);
+            var closebtn = new JControls.Button({ x: 280, y: 10 }, { width: 40, height: 40 }).setBGImage(ResourceData.Images.closebtn);
+            var okbtn = new JControls.Button({ x: 125, y: 250 }, { width: 100, height: 50 }).setBGImage(ResourceData.Images.qd);
+            BeginButton.onMouseDown = function() {
+                BeginButton.setBGImage(ResourceData.Images.clickstartbtn);
+                JMain.JForm.show();
+            }
+            BeginButton.onMouseUp = function() {
+                BeginButton.setBGImage(ResourceData.Images.startbtn);
+                JMain.JForm.show();
+            }
+            BeginButton.onClick = function() {
+                window.location.href = "index.html";
+
+            }
+            GMain.setPanel.visible = false;
+            GMain.setPanel.addControlInLast([musicbtn1, musictext1, musicbtn2, musictext2, closebtn, okbtn]);
+
+            setButton.onClick = function() {
+                GMain.setPanel.visible = true;
+                JMain.JForm.show();
+            }
+            okbtn.onClick = function() {
+                ok1 = mus1f;
+                ok2 = mus2f;
+
+                GMain.setPanel.visible = false;
+                JMain.JForm.show();
+            }
+            musicbtn1.onClick = function() {
+                if (mus1f == 1) {
+                    musicbtn1.setBGImage(ResourceData.Images.clomusic);
+                    mus1f = 0;
+                } else if (mus1f == 0) {
+                    musicbtn1.setBGImage(ResourceData.Images.music);
+                    mus1f = 1;
+                }
+                JMain.JForm.show();
+            }
+            musicbtn2.onClick = function() {
+                if (mus2f == 1) {
+                    musicbtn2.setBGImage(ResourceData.Images.clomusic);
+                    mus2f = 0;
+                } else if (mus2f == 0) {
+                    musicbtn2.setBGImage(ResourceData.Images.music);
+                    mus2f = 1;
+                }
+                JMain.JForm.show();
+            }
+            closebtn.onClick = function() {
+                //GMain.setPanel.([musicbtn1,musictext1,musicbtn2,musictext2,closebtn]);
+                if (ok1 == 1) {
+                    musicbtn1.setBGImage(ResourceData.Images.music);
+
+                } else if (ok1 == 0) {
+                    musicbtn1.setBGImage(ResourceData.Images.clomusic);
+                }
+                if (ok2 == 1) {
+                    musicbtn2.setBGImage(ResourceData.Images.music);
+                } else if (ok2 == 0) {
+                    musicbtn2.setBGImage(ResourceData.Images.clomusic);
+                }
+                GMain.setPanel.visible = false;
+                mus1f = ok1;
+                mus2f = ok2;
+                JMain.JForm.show();
+            }
+            GMain.BtnPanel.addControlInLast([BeginButton, setButton]);
+            JMain.JForm.addControlInLast([GMain.BtnPanel]);
+            JMain.JForm.addControlInLast([GMain.setPanel]);
+            JMain.JForm.show();
+        });
+    }
+
+
+
+
+    Init("start");
+    </script>
+</body>
+
+</html>

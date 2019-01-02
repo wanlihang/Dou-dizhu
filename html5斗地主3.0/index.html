@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>游戏大厅</title>
+    <script type="text/javascript" src="ResourceData.js" ></script>
+    <script type="text/javascript" src="Prototype.js" ></script>
+    <script type="text/javascript" src="JControls.js" ></script>
+    <script type="text/javascript" src="DJDDZ.js" ></script>
+    <script type="text/javascript" src="gif.js" ></script>
+    <link rel="stylesheet" type="text/css" href="css/gif.css">
+
+    <style type="text/css">
+	.divgif
+	{
+		position: absolute;
+		left:630px;top:100px; 
+		width:60px;
+		height:60px;
+		background-image: url("img/fanq1.png");
+		animation:first 2s;
+		-moz-animation:first 2s; /* Firefox */
+		-webkit-animation:first 2s; /* Safari and Chrome */
+		-o-animation:first 2s; /* Opera */
+		animation-iteration-count: infinite;
+		-webkit-animation-iteration-count: infinite;
+		animation-fill-mode:forwards; 
+		-webkit-animation-fill-mode:forwards; /* Safari 和 Chrome */
+	}
+	@-webkit-keyframes first 
+	{
+		from {background-image: url("img/fanq1.png"); height: 60px;}
+		to {background-image: url("img/fanq1.png");height: 0px;}
+	}
+	.divgif2
+	{
+		position: absolute;
+		left:1225px;top:100px; 
+		width:60px;
+		height:60px;
+		background-image: url("img/fanq2.png");
+		animation:second 2s;
+		-moz-animation:second 2s; /* Firefox */
+		-webkit-animation:second 2s; /* Safari and Chrome */
+		-o-animation:second 2s; /* Opera */
+		animation-iteration-count: infinite;
+		-webkit-animation-iteration-count: infinite;
+		animation-fill-mode :forwards;
+		-webkit-animation-fill-mode :forwards;
+	}
+	@-webkit-keyframes second
+	{
+		from {background-image: url("img/fanq2.png"); height: 60px;}
+		to {background-image: url("img/fanq2.png");height: 0px;}
+	}
+</style>
+
+</head>
+<body onload="initScore()">
+<div id="left">
+	
+</div>
+
+<div style="margin-left: 450px;">
+	<div style="margin-top: 0px;width: 1000px;height: 70px;background: #3B0F0B;
+	border-top-right-radius: 10px;border-top-left-radius: 10px;">
+		<a href="start.html"><img src="img/cliexit.png" style="height: 40px;position: absolute; top: 18px;"></a>
+		<span style="position: absolute; left: 900px;color: #F0CAA9; font-size: 30px;">计分面板</span>
+		<div style="text-align: right; color: #F0CAA9; font-size: 30px;margin-right: 10px; ">
+			积分：<span id="score" style="color: #A36128;"></span>
+		</div>
+		<div style="color: #F0CAA9; font-size: 20px; text-align: center;">
+	    	×<span id="beishu" style="color: #A36128;"></span>
+		</div>
+		
+	</div>
+		<canvas id="canvas1"></canvas>
+	</div>
+
+
+<script type="text/javascript">
+    DJDDZ.Init("canvas1");
+</script>
+
+<script type="text/javascript">
+	function initScore(){
+		var score = localStorage.getItem("score");
+		if(score == null){
+			localStorage.setItem("score",5000);
+		}
+		document.getElementById("score").innerText = localStorage.getItem("score");
+		document.getElementById("beishu").innerText = beishu;
+	}
+</script>
+
+
+
+<div class="divgif" id="fq"></div>
+<div class="divgif2" id="fq2"></div>
+<div class="tea" id="tea"><img src="img/tea.gif"></div>
+<div class="tea2" id="tea2"><img src="img/tea.gif"></div>
+<img src="img/test.gif" class="imgcss1">
+<img src="img/test.gif" class="imgcss2">
+<div class="div11">
+	<img src="img/fanq.png" draggalbe="true" tabindex="1" style="width: 30px;height: 30px;" onclick="diufanqie()" onblur="qx()">
+</div>
+<div class="div12">
+	<img src="img/tea.png" tabindex="1" style="width: 30px;height: 30px;" onclick="daocha()" onblur="qx3()">
+</div>
+<div class="div21">
+	<img src="img/fanq.png" tabindex="1" style="width: 30px;height: 30px;" onclick="diufanqie2()" onblur="qx2()">
+</div>
+<div class="div22">
+	<img src="img/tea.png" tabindex="1" style="width: 30px;height: 30px;" onclick="daocha2()" onblur="qx4()">
+</div>
+
+</body>
+</html>

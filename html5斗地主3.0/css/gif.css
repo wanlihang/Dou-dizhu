@@ -1,0 +1,67 @@
+.div11{
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		left: 630px;
+		top: 210px;
+	}
+	.div12
+	{
+		position: absolute;
+		left: 670px;
+		top: 210px;
+		width: 30px;
+		height: 30px;
+	}
+	.div21
+	{
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		left: 1220px;
+		top: 210px;
+	}
+	.div22
+	{
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		left: 1260px;
+		top: 210px;
+	}
+	.imgcss1
+	{
+		width: 80px;
+		height: 80px;
+		border-radius: 40px;
+		position: absolute;
+		left: 620px;
+		top: 100px;
+	}
+	.imgcss2
+	{
+		width: 80px;
+		height: 80px;
+		border-radius: 40px;
+		position: absolute;
+		left: 1215px;
+		top: 100px;
+	}
+	.tea
+	{
+		position: absolute;
+		left:630px;top:140px; 
+		width:60px;
+		height:60px;
+		background-image: url("img/tea.gif");
+		z-index: -1;
+	}
+	.tea2
+	{
+		position: absolute;
+		left:1225px;top:140px; 
+		width:60px;
+		height:60px;
+		background-image: url("img/tea.gif");
+		z-index: -1;
+	}
